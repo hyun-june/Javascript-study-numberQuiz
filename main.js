@@ -17,6 +17,36 @@ let chanceArea = document.getElementById("chance-area");
 let historyArea = document.getElementById("history-area")
 let chances = 5;
 let history = [];
+let displayimg = document.getElementById("display-img");
+let audioBtn = document.getElementById("audio-btn");
+
+const createAudio=(src,volume)=>{
+    let audio = new Audio();
+    audio.src = src;
+    audio.volume = volume;
+    return audio;
+}
+
+let bgmSound = createAudio("sound/bgm.mp3", 0.2);
+let missSound = createAudio("sound/miss.mp3", 0.1);
+let correctSound = createAudio("sound/correct.mp3", 0.1);
+let gameoverSound = createAudio("sound/gameover.mp3", 0.1);
+let resetSound = createAudio("sound/reset.mp3", 0.1);
+
+audioBtn.addEventListener("click",()=>{
+    let playIcon = document.querySelector(".fa-play");
+    let pauseIcon = document.querySelector(".fa-pause");
+
+    if(bgmSound.paused){
+        bgmSound.play();
+        playIcon.style.display = "none";
+        pauseIcon.style.display = "inline";
+    } else {
+        bgmSound.pause();
+        playIcon.style.display = "inline";
+        pauseIcon.style.display = "none";
+    }
+})
 
 const randomNumber = () =>{
     randomNum = Math.floor(Math.random()*100+1);
@@ -41,17 +71,22 @@ const play = () =>{
 
     history.push(userValue);
     historyArea.textContent = `입력한 숫자 : ${history}`
+    historyArea.style.display = "inline";
 
     if(userValue < randomNum){
-        resultArea.textContent = "Up"
+        displayimg.src = "img/up.jpeg"
+        missSound.play();
     } else if(userValue > randomNum){
-        resultArea.textContent = "Down"
+        displayimg.src = "img/down.jpeg"
+        missSound.play();
     } else if(userValue == randomNum){
-        resultArea.textContent = "정답"
+        displayimg.src = "img/correct.png"
+        correctSound.play();
     }
 
     if(chances == 0){
         playButton.disabled = true;
+        gameoverSound.play();
     }
 }
 
@@ -59,9 +94,11 @@ const reset = () =>{
     chances = 5;
     history = [];
     chanceArea.textContent = `남은 기회 : ${chances}번`
-    historyArea.textContent = `입력한 숫자 : ${history}`
+    historyArea.style.display = "none";
     playButton.disabled = false;
     userInput.value = "";
+    displayimg.src = "img/quiz.png"
+    resetSound.play();
     randomNumber();
 }
 

@@ -4,17 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <title>numberQuiz</title>
 </head>
 <body>
-    <h1>숫자 맞추기</h1>
-    <div id="result-area">정답알리미</div>
-    <div id="chance-area">남은 기회 : 5번</div>
-    <input type="number" id="user-input"/>
-    <button id="play-button">play</button>
-    <button id="reset-button">reset</button>
-    <div id="history-area">입력한 숫자 : </div>
+    <div class="display">
+        <div class="display-ui">
+            <div class="display-inner">
+                <h1>Number Quiz</h1>
+                <button id="audio-btn">
+                    <i class="fa-solid fa-play"></i>
+                    <i class="fa-solid fa-pause"></i>
+                </button>
+                <div class="display-section">
+                    <img src="img/quiz.png" alt="" id="display-img">
+                    <div id="result-area">숫자를 입력하세요.</div>
+                    <div id="chance-area">남은 기회 : 5번</div>
+                    <input type="number" id="user-input"/>
+                    <div id="history-area">입력한 숫자 : </div>
+                </div>
+            </div>
+            <div class="display-btn">
+                <button id="play-button" class="display-btn_style">play</button>
+                <button id="reset-button" class="display-btn_style">reset</button>
+            </div>
+        </div>
+    </div>
 
     <script src="main.js"></script>
+    <script src="https://kit.fontawesome.com/b4957b2c73.js" crossorigin="anonymous"></script>
 </body>
 </html>
